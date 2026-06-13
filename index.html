@@ -3,10 +3,633 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>kurnya.github.io</title>
+    <meta name="theme-color" content="#0f172a">
+    <meta
+      name="description"
+      content="Profil GitHub Kurnya, berisi proyek publik, eksperimen, dan karya pengembangan perangkat lunak."
+    >
+    <title>Kurnya | GitHub Portfolio</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #f8fafc;
+        --surface: #ffffff;
+        --surface-soft: #eef2ff;
+        --text: #0f172a;
+        --muted: #64748b;
+        --line: #e2e8f0;
+        --accent: #2563eb;
+        --accent-strong: #1d4ed8;
+        --shadow: 0 24px 70px rgba(15, 23, 42, 0.1);
+        --radius: 18px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background:
+          radial-gradient(circle at top left, rgba(37, 99, 235, 0.14), transparent 34rem),
+          linear-gradient(180deg, #ffffff 0%, var(--bg) 48%, #eef2ff 100%);
+        color: var(--text);
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          sans-serif;
+        line-height: 1.6;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .page {
+        width: min(1120px, calc(100% - 32px));
+        margin: 0 auto;
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        padding: 28px 0;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 750;
+        letter-spacing: 0.01em;
+      }
+
+      .brand-mark {
+        display: grid;
+        width: 38px;
+        height: 38px;
+        place-items: center;
+        border-radius: 12px;
+        background: var(--text);
+        color: #fff;
+        font-size: 15px;
+        box-shadow: 0 14px 28px rgba(15, 23, 42, 0.16);
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .nav-links a,
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 42px;
+        border-radius: 999px;
+        padding: 0 16px;
+        color: var(--muted);
+        font-size: 14px;
+        font-weight: 650;
+        transition: 180ms ease;
+      }
+
+      .nav-links a:hover {
+        background: rgba(37, 99, 235, 0.08);
+        color: var(--accent);
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.55fr);
+        gap: 32px;
+        align-items: center;
+        padding: 54px 0 72px;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 18px;
+        color: var(--accent);
+        font-size: 13px;
+        font-weight: 750;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .eyebrow::before {
+        content: "";
+        width: 34px;
+        height: 2px;
+        border-radius: 999px;
+        background: currentColor;
+      }
+
+      h1 {
+        max-width: 850px;
+        margin: 0;
+        font-size: clamp(42px, 7vw, 82px);
+        line-height: 0.96;
+        letter-spacing: -0.045em;
+      }
+
+      .lead {
+        max-width: 680px;
+        margin: 24px 0 0;
+        color: var(--muted);
+        font-size: clamp(17px, 2vw, 20px);
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 32px;
+      }
+
+      .button {
+        border: 1px solid var(--line);
+        background: var(--surface);
+        color: var(--text);
+        box-shadow: 0 8px 24px rgba(15, 23, 42, 0.07);
+      }
+
+      .button.primary {
+        border-color: var(--accent);
+        background: var(--accent);
+        color: #fff;
+      }
+
+      .button:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+        transform: translateY(-1px);
+      }
+
+      .button.primary:hover {
+        background: var(--accent-strong);
+        color: #fff;
+      }
+
+      .profile-card {
+        overflow: hidden;
+        border: 1px solid rgba(226, 232, 240, 0.9);
+        border-radius: var(--radius);
+        background: rgba(255, 255, 255, 0.82);
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(18px);
+      }
+
+      .profile-top {
+        min-height: 96px;
+        background:
+          linear-gradient(135deg, rgba(37, 99, 235, 0.95), rgba(14, 165, 233, 0.75)),
+          linear-gradient(45deg, #dbeafe, #eff6ff);
+      }
+
+      .profile-body {
+        padding: 0 24px 24px;
+      }
+
+      .avatar {
+        display: block;
+        width: 96px;
+        height: 96px;
+        margin-top: -48px;
+        border: 5px solid #fff;
+        border-radius: 26px;
+        background: #e2e8f0;
+        object-fit: cover;
+        box-shadow: 0 16px 32px rgba(15, 23, 42, 0.18);
+      }
+
+      .profile-card h2 {
+        margin: 16px 0 4px;
+        font-size: 28px;
+        letter-spacing: -0.03em;
+      }
+
+      .profile-card p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        margin-top: 22px;
+      }
+
+      .stat {
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 12px;
+        background: #fff;
+      }
+
+      .stat strong {
+        display: block;
+        font-size: 22px;
+        line-height: 1;
+      }
+
+      .stat span {
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 650;
+      }
+
+      section {
+        padding: 42px 0;
+      }
+
+      .section-head {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 20px;
+        margin-bottom: 22px;
+      }
+
+      .section-head h2 {
+        margin: 0;
+        font-size: clamp(28px, 4vw, 42px);
+        line-height: 1.05;
+        letter-spacing: -0.04em;
+      }
+
+      .section-head p {
+        max-width: 540px;
+        margin: 10px 0 0;
+        color: var(--muted);
+      }
+
+      .repo-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+      }
+
+      .repo-card {
+        display: flex;
+        min-height: 228px;
+        flex-direction: column;
+        justify-content: space-between;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.86);
+        box-shadow: 0 12px 36px rgba(15, 23, 42, 0.06);
+        transition: 180ms ease;
+      }
+
+      .repo-card:hover {
+        border-color: rgba(37, 99, 235, 0.45);
+        box-shadow: 0 20px 48px rgba(37, 99, 235, 0.12);
+        transform: translateY(-2px);
+      }
+
+      .repo-card h3 {
+        margin: 0;
+        font-size: 18px;
+        letter-spacing: -0.02em;
+        overflow-wrap: anywhere;
+      }
+
+      .repo-card p {
+        display: -webkit-box;
+        min-height: 72px;
+        margin: 12px 0 18px;
+        overflow: hidden;
+        color: var(--muted);
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 3;
+      }
+
+      .repo-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 650;
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        border-radius: 999px;
+        background: var(--surface-soft);
+        padding: 6px 10px;
+      }
+
+      .language-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 999px;
+        background: var(--accent);
+      }
+
+      .state {
+        border: 1px dashed #cbd5e1;
+        border-radius: 16px;
+        padding: 26px;
+        background: rgba(255, 255, 255, 0.72);
+        color: var(--muted);
+      }
+
+      .footer {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        border-top: 1px solid var(--line);
+        padding: 32px 0 44px;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      @media (max-width: 880px) {
+        .hero {
+          grid-template-columns: 1fr;
+          padding-top: 32px;
+        }
+
+        .repo-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 640px) {
+        .page {
+          width: min(100% - 24px, 1120px);
+        }
+
+        .nav {
+          align-items: flex-start;
+          flex-direction: column;
+          padding: 20px 0;
+        }
+
+        .nav-links {
+          width: 100%;
+          overflow-x: auto;
+          padding-bottom: 4px;
+        }
+
+        .hero {
+          padding-bottom: 48px;
+        }
+
+        .actions,
+        .section-head,
+        .footer {
+          align-items: stretch;
+          flex-direction: column;
+        }
+
+        .button {
+          width: 100%;
+        }
+
+        .stats,
+        .repo-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
   </head>
   <body>
-    <h1>kurnya.github.io</h1>
-    <p>Halaman ini digunakan sebagai root GitHub Pages.</p>
+    <header class="page nav">
+      <a class="brand" href="https://github.com/kurnya/" aria-label="Buka GitHub Kurnya">
+        <span class="brand-mark">K</span>
+        <span>kurnya.github.io</span>
+      </a>
+      <nav class="nav-links" aria-label="Navigasi utama">
+        <a href="#repos">Repositori</a>
+        <a href="https://github.com/kurnya?tab=repositories">GitHub</a>
+      </nav>
+    </header>
+
+    <main>
+      <div class="page hero">
+        <div>
+          <span class="eyebrow">GitHub Portfolio</span>
+          <h1>Ruang kecil untuk proyek, eksperimen, dan karya open source.</h1>
+          <p class="lead">
+            Halaman ini merangkum profil GitHub Kurnya dan menampilkan repositori publik
+            terbaru langsung dari GitHub.
+          </p>
+          <div class="actions">
+            <a class="button primary" href="https://github.com/kurnya/">Lihat GitHub</a>
+            <a class="button" href="#repos">Jelajahi Repositori</a>
+          </div>
+        </div>
+
+        <aside class="profile-card" aria-label="Profil GitHub">
+          <div class="profile-top"></div>
+          <div class="profile-body">
+            <img
+              class="avatar"
+              id="avatar"
+              src="https://github.com/kurnya.png"
+              alt="Avatar GitHub Kurnya"
+              width="96"
+              height="96"
+            >
+            <h2 id="profileName">Kurnya</h2>
+            <p id="profileBio">Memuat profil GitHub...</p>
+            <div class="stats" aria-label="Statistik GitHub">
+              <div class="stat">
+                <strong id="repoCount">-</strong>
+                <span>Repos</span>
+              </div>
+              <div class="stat">
+                <strong id="followers">-</strong>
+                <span>Followers</span>
+              </div>
+              <div class="stat">
+                <strong id="following">-</strong>
+                <span>Following</span>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <section class="page" id="repos" aria-labelledby="repos-title">
+        <div class="section-head">
+          <div>
+            <h2 id="repos-title">Repositori Publik</h2>
+            <p>
+              Daftar ini diambil otomatis dari GitHub API dan diurutkan berdasarkan aktivitas
+              terbaru.
+            </p>
+          </div>
+          <a class="button" href="https://github.com/kurnya?tab=repositories">Semua di GitHub</a>
+        </div>
+
+        <div class="state" id="repoState">Memuat repositori publik...</div>
+        <div class="repo-grid" id="repoGrid" hidden></div>
+      </section>
+    </main>
+
+    <footer class="page footer">
+      <span>© <span id="year"></span> Kurnya. Dibangun dengan GitHub Pages.</span>
+      <a href="https://github.com/kurnya/">github.com/kurnya</a>
+    </footer>
+
+    <script>
+      const username = "kurnya";
+      const apiBase = `https://api.github.com/users/${username}`;
+      const formatNumber = new Intl.NumberFormat("id-ID");
+      const year = document.getElementById("year");
+      const avatar = document.getElementById("avatar");
+      const profileName = document.getElementById("profileName");
+      const profileBio = document.getElementById("profileBio");
+      const repoCount = document.getElementById("repoCount");
+      const followers = document.getElementById("followers");
+      const following = document.getElementById("following");
+      const repoState = document.getElementById("repoState");
+      const repoGrid = document.getElementById("repoGrid");
+
+      year.textContent = new Date().getFullYear();
+
+      const escapeHtml = (value) =>
+        String(value ?? "")
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#039;");
+
+      const languageColor = (language) => {
+        const colors = {
+          Blade: "#f7523f",
+          CSS: "#563d7c",
+          HTML: "#e34c26",
+          JavaScript: "#f1e05a",
+          PHP: "#4f5d95",
+          Python: "#3572a5",
+          TypeScript: "#3178c6",
+          Vue: "#41b883"
+        };
+
+        return colors[language] || "#2563eb";
+      };
+
+      const renderRepos = (repos) => {
+        if (!repos.length) {
+          repoState.textContent = "Belum ada repositori publik yang bisa ditampilkan.";
+          return;
+        }
+
+        repoGrid.innerHTML = repos
+          .map((repo) => {
+            const description = repo.description || "Repositori publik di GitHub Kurnya.";
+            const language = repo.language || "Code";
+            const updated = new Date(repo.updated_at).toLocaleDateString("id-ID", {
+              day: "2-digit",
+              month: "short",
+              year: "numeric"
+            });
+
+            return `
+              <a class="repo-card" href="${repo.html_url}" aria-label="Buka ${escapeHtml(repo.name)}">
+                <div>
+                  <h3>${escapeHtml(repo.name)}</h3>
+                  <p>${escapeHtml(description)}</p>
+                </div>
+                <div class="repo-meta">
+                  <span class="pill">
+                    <span class="language-dot" style="background:${languageColor(language)}"></span>
+                    ${escapeHtml(language)}
+                  </span>
+                  <span class="pill">${formatNumber.format(repo.stargazers_count)} stars</span>
+                  <span class="pill">Update ${updated}</span>
+                </div>
+              </a>
+            `;
+          })
+          .join("");
+
+        repoState.hidden = true;
+        repoGrid.hidden = false;
+      };
+
+      const fetchAllRepos = async () => {
+        const repos = [];
+        let page = 1;
+
+        while (true) {
+          const response = await fetch(
+            `${apiBase}/repos?per_page=100&page=${page}&sort=updated&type=owner`
+          );
+
+          if (!response.ok) {
+            throw new Error("GitHub API tidak tersedia.");
+          }
+
+          const pageRepos = await response.json();
+          repos.push(...pageRepos);
+
+          if (pageRepos.length < 100) {
+            return repos;
+          }
+
+          page += 1;
+        }
+      };
+
+      const loadGithubProfile = async () => {
+        try {
+          const [profileResponse, repos] = await Promise.all([
+            fetch(apiBase),
+            fetchAllRepos()
+          ]);
+
+          if (!profileResponse.ok) {
+            throw new Error("GitHub API tidak tersedia.");
+          }
+
+          const profile = await profileResponse.json();
+
+          document.title = `${profile.name || username} | GitHub Portfolio`;
+          avatar.src = profile.avatar_url || avatar.src;
+          avatar.alt = `Avatar GitHub ${profile.name || username}`;
+          profileName.textContent = profile.name || username;
+          profileBio.textContent =
+            profile.bio || "Developer yang membangun proyek, eksperimen, dan utilitas publik.";
+          repoCount.textContent = formatNumber.format(profile.public_repos || repos.length);
+          followers.textContent = formatNumber.format(profile.followers || 0);
+          following.textContent = formatNumber.format(profile.following || 0);
+
+          renderRepos(repos);
+        } catch (error) {
+          profileBio.textContent =
+            "Profil tetap bisa dibuka lewat GitHub. Data otomatis belum tersedia saat ini.";
+          repoState.innerHTML = `
+            Data repositori belum bisa dimuat dari GitHub API.
+            <a href="https://github.com/${username}?tab=repositories">Buka daftar repositori di GitHub</a>.
+          `;
+        }
+      };
+
+      loadGithubProfile();
+    </script>
   </body>
 </html>
